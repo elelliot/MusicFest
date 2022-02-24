@@ -1,0 +1,66 @@
+@use'variables' as v;
+html {
+    font-size: 62.5%; //1 rem = 10px, gracias a esto
+    box-sizing: border-box;
+}
+
+*,*:before,*:after {
+    box-sizing: inherit; //el padding no hará pancho why ? idr.
+}
+
+body {
+    font-family: v.$fuente_principal;
+    font-size: 1.6rem; //16px
+
+    //si la clase está presente (como si fuera un if)
+    &.fijar-body {
+        overflow: hidden;//con esto se bloquea el scroll (no como pensé pero funciona)
+    }
+
+
+    //Paso 2-Le damos padding al body, para que cuando la barra se fije, el body no se mueva de golpe... llenamos el hueco que dejó el header
+    &.body-scroll {
+        padding-top: 8.6rem;//el padding debe ser lo que mide la barra (86px u 8.6rem)
+        /*El problema de hacer esto es que el padding también hace que la barra se aleje del top del viewport, 
+        para eso...(ver paso 3 en _header.scss)*/
+    }
+}
+
+p {
+    font-size: 2rem;
+    color:v.$negro;
+    line-height: 1.5; //interlineado
+}
+
+.contenedor{
+    width: 95%;
+    max-width: 120rem;
+    margin: 0 auto; //vertical horizontal
+}
+
+a {
+    text-decoration: none;//quitamos linea de los enlaces
+}
+
+h1, h2, h3 {
+    margin: 0 0 5rem 0; //arriba derecha abajo izquierda
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+h2 {
+    font-size: 3.6rem;
+}
+
+h3 {
+    font-size: 3rem;
+}
+
+img {
+    max-width: 100%;
+    width: 100%;//Son "buenas" prácticas poner width y height de esta manera en el CSS y poner width="200" height="300" en el HTML
+    height: auto;//
+    display: block;
+}

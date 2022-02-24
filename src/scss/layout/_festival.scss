@@ -1,0 +1,30 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.sobre-festival {
+    padding: 5rem 0;
+    @include m.tablet {
+        @include m.grid(2, 5rem); //media query para que > 768 px me de un grid de x columnas y "y"rem de separación.
+    }
+}
+
+.contenido-festival {
+    
+    //Centramos verticalmente todo lo de el div, en este caso el h2 y los parrafos que están ahí
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include m.tablet {
+        margin-top: 0;
+    }
+    margin-top: 5rem;
+    h2 {
+        margin-bottom: 2rem;
+    }
+
+    .fecha {
+        color: v.$rosa;
+        font-weight: 700;
+    }
+}

@@ -1,0 +1,38 @@
+//Variable
+/*podemos ejecutar sass con scripts del package.json usando los bin, en este caso, sass lo tiene pero no siempre será así
+ej:
+Lee sass en la carpeta donde está tu archivo (no necesitamos poner archivo)
+
+nombre del script:el bin
+
+"scripts": {
+    "sass":"sass --watch src/scss:build/css"
+  }
+  Resumen: Abre el bin de Sass, lo lee en la 1er carpeta (no necesitamos poner el file, solo el path)
+  y almacena la versión compilada en la 2da ya que necesitamos que el archivo final sea CSS
+  --watch va a escuchar cada cambio y va a compilar automaticamente
+
+  Compilando SASS:
+  --Con npm
+  npm run sass (el nombre del script)
+
+  --con gulp
+  creamos un gulpfile y lo trabajamos:
+  gulp tarea (tarea es función de JS)
+  
+  
+y el index debe apuntar al css compilado, no al sass
+*/
+
+/*Los archivos con "_" al inicio, SASS los reconoce como archivos secundarios que no crearán otras hojas de estilos 
+y por eso los debemos importar en el principal (en el que no tiene "_" al inicio del nombre)*/
+
+//import es la sintaxis anterior
+//@import 'base/variables'; //import hace que el archivo variables esté disponible globalmente
+//@import 'contenido/contenido'; //Como este contenido tiene un h1 y está antes del body aunque sea en el import, lo pondrá primero en el css final
+
+
+//Nueva sintaxis de importación, use y forward
+//ahora el use busca al _index.scss de la carpeta que le digamos y ese index apunta con el forward a los demás archivos
+@use 'base'; //use es local, solo está en este archivo.
+@use 'layout';

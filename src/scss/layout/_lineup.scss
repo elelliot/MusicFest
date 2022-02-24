@@ -1,0 +1,91 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.lineup {
+    background-color: v.$rosa;
+    padding: 5rem 0;
+
+    h3, p {
+        text-align: center;
+        color: v.$blanco;
+    }
+    .dia {
+        text-transform: uppercase;
+        margin: 5rem 0; //5 vertical y 0 horizontal
+    }
+}
+
+.escenarios-contenedor {
+    @include m.tablet {
+        @include m.grid(2, 5rem); //Para que de 768px en adelante se vea en formato de 2 columnas y separación de 5rem 
+    }
+
+    p {
+        color:v.$negro;
+    }
+
+}
+
+
+.escenario {
+    padding-top: 2rem;
+
+    .nombre-escenario {
+        /*Cada parrafo (.nombre-escenario) de .escenario (div) tendrá justo después (por eso el :after) un background seteado para poner el 
+        ícono de audifonos o guitarra (sin el ícono quedaría un campo vacío con estas specs)*/
+        &:after {
+            content:'';
+            display: block;
+            width: 20rem;
+            height: 10rem;
+            background-size: 15rem;
+            background-repeat: no-repeat;
+            background-position: center center;
+            margin: 0 auto; //centramos
+            margin: 2rem auto 0 auto;
+
+        }
+    }
+}
+
+/*Ya seteado el background para el ícono, 
+ponemos el ícono en después (:after) de cada parrafo (.nombre-escenario) de cada div .edm*/
+.edm .nombre-escenario:after {
+    background-image: url(../img/icono_edm.png);//no tomamos referencia del SASS, la tomamos desde donde queda compilado, osea del CSS
+}
+
+//Ícono de rock después (:after) de cada parrafo (.nombre-escenario) de cada div .rock
+.rock .nombre-escenario:after {
+    background-image: url(../img/icono_rock.png);
+}
+
+
+
+//Lista/Horario de artistas
+.calendario {
+    @include m.resetear-lista;
+    li {
+        padding: 2.5rem;
+        font-weight: 700;
+        span {
+            font-weight: 400;
+        }
+    }
+}
+
+
+.bg-amarillo {
+    background-color: v.$amarillo;
+
+    //seleccionamos los "li" del .bg-amarillo impares y oscurecemos un poco el amarillo
+    li:nth-child(odd) {
+        background-color: darken($color: v.$amarillo, $amount: 15%);
+    }
+}
+.bg-verde {
+    background-color: v.$verde;
+    //Lo mismo con los "li" verdes impares
+    li:nth-child(odd) {
+        background-color: darken($color: v.$verde, $amount: 10%);
+    }
+}

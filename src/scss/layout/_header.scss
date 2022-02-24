@@ -1,0 +1,113 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m; //La importación de mixins funciona igual
+.header {
+    background-color: v.$verde;
+    
+    //(Paso 5) Para el slide-up al quitarle lo fijo en la clase .fijo
+    //El video sobrepone el header y pareciera que se desliza en el video, con esto lo hará en el top del viewport como debe
+    z-index: 2;//igual podemos ponerlo dentro del Media query, no debería dar problema, but anyway
+
+
+    //Solo queremos que el header sea fijo si es > 768px
+    @include m.tablet {
+
+        /*Paso 4 (Opcional) Para que la navbar se deslize hacia abajo al fjiarla, si no, lo hace de golpe 
+        (Podemos quitarlo para ver como sería sin esto):
+        Si no seteamos esto, la transición sería de 0 a 0, por eso la ponemos así*/
+        top:-9.6rem;//con -8.6 se queda una raya del borde que aún se ve
+
+        //Para slide-up del navbar (Paso 5.1)
+        position:sticky;
+        width: 100%;
+        transition: top 0.3s;
+
+        //cuando tenga la clase de fijo...si no la tiene no pasa nada (para eso el "&")
+        &.fijo {
+            transition: top 0.3s;//Paso 4.1
+
+            /*Paso 3- Con el padding se evita que el body se mueva de golpe, pero eso deja el header alejado...
+            al fijar la posición arreglamos el problema*/
+
+            /*Con esos pasos hicimos que el header al ponerse fijo después de llegar a cierto punto de scroll (navegacionFija() 
+            en app.js, no moviera el body de golpe (podemos quitar lo de los 3 pasos para ver que pasa si no lo haciamos)*/
+            top: 0;
+            //left: 0; //no es necesario en realidad por lo que se ve , pero igual se lo pone y forma parte del paso 3
+
+            position: fixed;
+            width: 100%; //debemos ponerlo si no se ve a la mitad
+            box-shadow: .3rem .3rem 1.3rem #333; //Sombra
+            z-index: 2;//Igual encimamos el header sobre todo
+        }
+
+
+
+        
+    }
+
+
+    //esta anidación es de SASS, en el css final es otra cosa (.header h1{} )
+    h1 {
+        color: v.$blanco;
+        text-align: center;
+
+        @include m.tablet {
+            //el h1 tiene mucho margin por los globales, así que se lo dejamos cuando tenga solo la pantalla chica, y se lo quitamos cuando tengamos tablet res
+            margin: 0;
+        }
+
+    }
+
+    .contenido-header {
+        padding: 2rem;
+        @include m.tablet {
+            display:flex;
+            justify-content: space-between; //para que los elementos del div se centren, como son 2 quedarían de izq y derecha, como queremos
+            align-items: center;//para centrar verticalmente el div
+        }
+    }
+
+}
+
+.navegacion-principal {
+    
+    //El código que le demos a m.telefono, se lo daremos al content del mediaquery que definimos en el mixin y así manejamos codigo variable con las media queries en el mixin
+    // @include m.telefono {
+    //     background-color: red;
+    //     text-transform: uppercase;
+    //     font-weight: bold;
+    // }
+    
+    @include m.tablet {
+        display:flex; //para que el nav tenga los links agrupados en fila
+        gap: 2rem;
+    }
+
+    a {
+        display: block; //colocamos los links verticalmente
+        text-align: center;
+        color: v.$blanco;
+        font-size: 2.4rem;
+        margin-bottom: 1rem;
+
+        @include m.tablet {
+            margin: 0; //como el margin bottom de arriba nos afecta (los enlaces no están tan centrados verticalmente por eso) lo ponemos en 0
+        }
+
+
+        //esta anidación queda como a :hover en el css, para quitar el espacio (ya que siempre es así), usamos & (aunqué sin eso también funciona)
+        &:hover {
+            color: v.$amarillo;
+        }
+    }       
+}
+
+//Los mixins se aplican a los elementos
+// .prueba {
+//     //include manda a llamar el mixin , m y mixin especifico
+//     @include m.heading(v.$amarillo, true); //le los argumentos
+
+// }
+
+// .texto {
+//     @include m.heading; //si no le pasamos valor, necesitamos ponerle un valor por defecto al mixin, si no dará error, no es necesario poner () vacíos
+// }

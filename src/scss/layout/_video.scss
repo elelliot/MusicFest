@@ -1,0 +1,54 @@
+@use 'base/variables' as v;;
+@use 'base/mixins' as m;
+
+.video {
+    position: relative;//Si el elemento deja un vacío, el demás contenido no llenará el vacío, se ajustará en el
+    min-height: 50rem;//para que al hacer chica la pantalla no se vea tan chico el video
+    max-height: 70rem; //para que el video tome solo esa altura máxima
+    overflow: hidden; //como el video se desborda del gradiente, ponemos esto
+
+
+    .overlay {
+        position: absolute; //para encimar texto con video (pero nececitamos que el div padre tenga position relative )
+        //Gradient
+        background: rgb(165,3,255);
+        background: linear-gradient(270deg, rgba(165,3,255,0.5) 0%, rgba(255,0,110,0.3) 100%);
+        //Para que el div padre del texto del video ocupe 100% de la pantalla en ancho y alto
+        height: 100%;
+        width: 100%;
+        //Usamos flex para alinear por columnas el texto del video
+        display: flex;
+        flex-direction: column;
+        justify-content: center; //ahora centra verticalmente por el flex direction: column
+
+    }
+
+    video{
+        width: auto;
+        display: block;//para que el video tome todo el espacio hacia abajo, sino, el gradiente se desborda y se ve una linea que le sobra
+        @include m.desktop {
+            width: 100%;
+        }
+    }
+
+}
+
+
+.contenido-video {
+    z-index:1;//para que el texto esté encima del video
+    h2 {
+        color:v.$blanco;
+        font-size: 7rem;
+        margin: 0;
+    }
+
+    p {
+        background-color: v.$rosa;
+        display: inline-block; //para que tome el espacio que necesita solamente
+        padding: 1rem 2rem;
+        color: v.$blanco;
+        font-weight: 700;
+        font-size: 2.4rem;
+        margin: 0;
+    }
+}

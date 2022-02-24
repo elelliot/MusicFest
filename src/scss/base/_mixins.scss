@@ -1,0 +1,57 @@
+@use 'variables' as v;
+//todos los que inician con @ son directivas, son propias de sass
+//Un mixin es una pieza de código reutilizable
+//no generan codigo que se compila y lo usamos en otros archivos
+//creamos un mixin de nombre heading
+
+//también podemos pasarles argumentos poniendole parentesis como si fuera función y también asignarle valores por defecto
+// @mixin heading($color: blue, $border-radius: false) {
+//     text-transform: uppercase;
+//     font-size: 2.4rem;
+//     color: $color;
+//     letter-spacing: 10px;
+//     background-color: black;
+//     //condiciones en SASS, si es true le aplica border-radius
+//     @if $border-radius {
+//         border-radius: 1rem;
+//     }
+// }
+
+
+@mixin telefono {
+    //El media query es un bloque de código, y los mixins no los aceptan.
+    @media (min-width: v.$telefono) {
+        @content; //content agarra todo el código que le des al mixin desde donde lo usas.
+    }
+}
+
+@mixin tablet {
+    @media (min-width: v.$tablet) {
+        @content; 
+    }
+}
+
+@mixin desktop {
+    @media (min-width: v.$desktop) {
+        @content; 
+    }
+}
+
+@mixin desktopXL {
+    @media (min-width: v.$desktopXL) {
+        @content; 
+    }
+}
+
+@mixin grid($columnas, $espaciado) {
+    display: grid;
+    grid-template-columns: repeat($columnas,1fr);
+    gap: $espaciado; //si le llegamos a agregar varias columnas, se muestra de arriba hacia abajo así que evitamos comportamientos no deseados
+}
+
+//quitamos atributos por defecto de la lista (ol o ul)
+@mixin resetear-lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
